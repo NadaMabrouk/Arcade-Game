@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Effective JavaScript: Frogger</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div id="container">
+		<audio id="hit" src="sounds/funk100.mp3" autoplay loop></audio>
+		<p id="life"></p>
+		<div id="gameOver">
+			<p>Game Over !</p>
+			<p id="playAgain">Press Enter to play again.</p>
+		</div>
+		<div id="win">
+			<p>You Win!</p>
+			<p id="playAgain">Congratulations. <br><br>Press Escape to Play Again</p>
+		</div>
+		<p id="score"></p>
+		<p id="level"></p>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+    <script src="js/resources.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/engine.js"></script>
+</body>
+</html>
