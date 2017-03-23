@@ -4,22 +4,20 @@
  * a simple "caching" layer so it will reuse cached images if you attempt
  * to load the same image multiple times.
  */
-(function() {
-    var resourceCache = {};
-    var loading = [];
-    var readyCallbacks = [];
+( function() {
+    var resourceCache = {}, loading = [], readyCallbacks = [];
 
     /* This is the publicly accessible image loading function. It accepts
      * an array of strings pointing to image files or a string for a single
      * image. It will then call our private image loading function accordingly.
      */
     function load(urlOrArr) {
-        if(urlOrArr instanceof Array) {
+        if (urlOrArr instanceof Array) {
             /* If the developer passed in an array of images
              * loop through each value and call our image
              * loader on that image file
              */
-            urlOrArr.forEach(function(url) {
+            urlOrArr.forEach( function(url) {
                 _load(url);
             });
         } else {
@@ -35,7 +33,7 @@
      * called by the public image loader function.
      */
     function _load(url) {
-        if(resourceCache[url]) {
+        if (resourceCache[url]) {
             /* If this URL has been previously loaded it will exist within
              * our resourceCache array. Just return that image rather
              * re-loading the image.

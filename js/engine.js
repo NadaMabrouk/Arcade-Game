@@ -13,8 +13,6 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-
-
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -28,7 +26,7 @@ var Engine = (function(global) {
     canvas.width = 606;
     canvas.height = 606;
     $("#container").append(canvas);
-        
+
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -45,7 +43,7 @@ var Engine = (function(global) {
          * our update function since it may be used for smooth animation.
          */
         update(dt);
-        
+
         render();
 
         /* Set our lastTime variable which is used to determine the time delta
@@ -56,7 +54,7 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        if(player.life == 0){
+        if (player.life == 0) {
             var sound = new Audio('sounds/gameOver.mp3');
             document.getElementById('hit').pause();
             sound.play();
@@ -64,14 +62,14 @@ var Engine = (function(global) {
             if (document.addEventListener) {
                 document.addEventListener('keydown', gameOver, false);
             }
-        }else if(player.level == 7){
+        } else if (player.level == 7) {
             document.getElementById('hit').pause();
             $('#win').fadeIn('3000');
-            if(document.addEventListener){
+            if (document.addEventListener) {
                 console.log('inside eventListenrer');
-                document.addEventListener('keydown' , playerWin, false);
+                document.addEventListener('keydown', playerWin, false);
             }
-        }else {
+        } else {
             win.requestAnimationFrame(main);
         }
     }
@@ -80,21 +78,21 @@ var Engine = (function(global) {
      * particularly setting the lastTime variable that is required for the
      * game loop.
      */
-    function gameOver(e){
-        if(e.keyCode === 13 && player.life == 0){
+    function gameOver(e) {
+        if (e.keyCode === 13 && player.life == 0) {
             $('#gameOver').hide();
             player.life = 3;
             player.level = 1;
             player.speed = 20;
             extralife.resetPosition();
             document.getElementById('hit').play();
-            allEnemies = [new Enemy(-101, 83, 100),new Enemy(-101, 83 * 2, 90),new Enemy(-101, 83 * 3, 110)];
+            allEnemies = [new Enemy(-101, 83, 100), new Enemy(-101, 83 * 2, 90), new Enemy(-101, 83 * 3, 110)];
         }
-         main();
+        main();
     }
 
     function playerWin(e) {
-        if(e.keyCode === 27 && player.level == 7){
+        if (e.keyCode === 27 && player.level == 7) {
             $('#win').hide();
             player.life = 3;
             player.level = 1;
@@ -102,9 +100,9 @@ var Engine = (function(global) {
             golds = [new Gold('images/GemOrange.png')];
             extralife.resetPosition();
             document.getElementById('hit').play();
-            allEnemies = [new Enemy(-101, 83, 100),new Enemy(-101, 83 * 2, 90),new Enemy(-101, 83 * 3, 110)];
+            allEnemies = [new Enemy(-101, 83, 100), new Enemy(-101, 83 * 2, 90), new Enemy(-101, 83 * 3, 110)];
         }
-         main();
+        main();
     }
 
     function init() {
@@ -135,21 +133,21 @@ var Engine = (function(global) {
      */
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
-            enemy.update(dt,player.speed);
+            enemy.update(dt, player.speed);
         });
         player.update();
         extralife.update();
-        golds.forEach( function(gold) {
+        golds.forEach(function(gold) {
             gold.update();
         });
     }
 
-    function checkCollisions(){
-        allEnemies.forEach( function(enemy) {
+    function checkCollisions() {
+        allEnemies.forEach(function(enemy) {
             if (enemy.x < player.x + 70 &&
-               enemy.x + 70 > player.x &&
-               enemy.y < player.y + 83 &&
-               83 + enemy.y > player.y) {
+                enemy.x + 70 > player.x &&
+                enemy.y < player.y + 83 &&
+                83 + enemy.y > player.y) {
                 var mySound = new Audio('sounds/beep5.mp3');
                 mySound.play();
                 player.reset();
@@ -170,12 +168,12 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block2.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/water-block2.png', // Top row is water
+                'images/stone-block.png', // Row 1 of 3 of stone
+                'images/stone-block.png', // Row 2 of 3 of stone
+                'images/stone-block.png', // Row 3 of 3 of stone
+                'images/grass-block.png', // Row 1 of 2 of grass
+                'images/grass-block.png' // Row 2 of 2 of grass
             ],
             numRows = 6,
             numCols = 6,
@@ -199,7 +197,7 @@ var Engine = (function(global) {
         }
 
         renderEntities();
-        renderLevels(); 
+        renderLevels();
     }
 
     /* This function is called by the render function and is called on each game
@@ -224,8 +222,8 @@ var Engine = (function(global) {
         player.renderScore();
     }
 
-    function renderLevels () {
-        document.getElementById('level').innerHTML = "Level: " + player.level ;
+    function renderLevels() {
+        document.getElementById('level').innerHTML = "Level: " + player.level;
     }
 
     /* This function does nothing but it could have been a good place to
